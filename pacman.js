@@ -24,7 +24,14 @@ class Pacman {
     }
 
     eat() {
-
+        for (let i = 0; i < map.length; i++) {
+            for (let j = 0; j < map[0].length; j++) {
+                if (map[i][j] == 2 && this.getMapX() == j && this.getMapY() == i) {
+                    map[i][j] = 3
+                    score++
+                }
+            }
+        }
     }
 
     moveBackwards() {
@@ -76,12 +83,12 @@ class Pacman {
     }
 
     changeDirectionIfPossible() {
-        if(this.direction == this.nextDirection) return
-        
+        if (this.direction == this.nextDirection) return
+
         let tempDirection = this.direction
         this.direction = this.nextDirection
         this.moveForwards()
-        if (this.checkCollision()){
+        if (this.checkCollision()) {
             this.moveBackwards()
             this.direction = tempDirection
         } else {
@@ -102,12 +109,12 @@ class Pacman {
         canvasContext.drawImage(
             pacmanFrames,
             (this.currentFrame - 1) * oneBlockSize,
-            0, 
-            oneBlockSize, 
-            oneBlockSize, 
-            this.x, 
-            this.y, 
-            this.width, 
+            0,
+            oneBlockSize,
+            oneBlockSize,
+            this.x,
+            this.y,
+            this.width,
             this.height
         )
 
