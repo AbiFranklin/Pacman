@@ -15,6 +15,11 @@ let wallInnerColor = "black"
 let wallSpaceSize = oneBlockSize / 1.5
 let wallOffset = (oneBlockSize - wallSpaceSize) / 2
 
+const DIRECTION_RIGHT = 4;
+const DIRECTION_UP = 3
+const DIRECTION_LEFT = 2
+const DIRECTION_BOTTOM = 1
+
 let map = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
@@ -47,13 +52,15 @@ let gameLoop = () => {
 }
 
 let update = () => {
-    //Write Code
+    pacman.moveProcess()
 }
 
 let draw = () => {
     //Write Code
     createRect(0, 0, canvas.width, canvas.height, "black")
     drawWalls()
+
+    pacman.draw()
 }
 
 let gameInterval = setInterval(gameLoop, 1000 / fsp);
@@ -69,7 +76,7 @@ let drawWalls = () => {
                 if (j < map[0].length - 1 && map[i][j + 1] === 1) {
                     createRect(j * oneBlockSize + wallOffset, i * oneBlockSize + wallOffset, wallSpaceSize + wallOffset, wallSpaceSize, wallInnerColor)
                 }
-                if (i > 0 && map[i-1][j] == 1) {
+                if (i > 0 && map[i - 1][j] == 1) {
                     createRect(j * oneBlockSize + wallOffset, i * oneBlockSize, wallSpaceSize, wallSpaceSize + wallOffset, wallInnerColor)
                 }
                 if (i < map.length - 1 && map[i + 1][j] === 1) {
@@ -79,3 +86,10 @@ let drawWalls = () => {
         }
     }
 }
+
+let createNewPacman = () => {
+    pacman = new Pacman(oneBlockSize, oneBlockSize, oneBlockSize, oneBlockSize, oneBlockSize / 5)
+}
+
+createNewPacman()
+gameLoop()
